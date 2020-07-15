@@ -1,0 +1,7 @@
+{{ define "import" }}
+{{- with $idx := .ImportEdges }}
+    {{- range $i := $idx }}
+import "{{ $i }}";
+    {{ end }}
+{{ end }}
+{{ end }}

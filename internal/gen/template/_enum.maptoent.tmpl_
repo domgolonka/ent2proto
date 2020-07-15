@@ -1,0 +1,10 @@
+{{ define "enummaptoent" -}}
+{{ range $f := $.Fields -}}
+{{ if $f.IsEnum -}}
+func (r *{{ .Title}}Mapper)  to{{trimPackage $f.Type.String $.Package -}}Ent() (s *database.UserWithdrawals_Method)
+{{end -}}
+{{end -}}
+{{ end -}}
+
+
+

@@ -1,0 +1,10 @@
+{{ define "uuid" -}}
+syntax = "proto3";
+package schema;
+option go_package = ".;serverpb";
+
+
+message UUID {
+  string value = 1;
+}
+{{ end }}

@@ -1,0 +1,32 @@
+{{define "protobuf" -}}
+syntax = "proto3";
+package schema;
+option go_package = ".;serverpb";
+
+{{ if .HasTime -}}import "google/protobuf/timestamp.proto";{{end}}
+{{ template "import" . -}}
+{{ if .HasUUID -}} import "uuid.proto"; {{ end }}
+message {{ .Title }} {
+{{$count:=0}}
+{{range $_, $v := .Fields}}
+  // @inject_tag: "{{ snake $v.StructField}}"
+   {{$count = add $count 1 -}}
+    {{ if $v.IsEnum -}}
+    {{ $enum := trimPackage $v.Type.String $.Package -}}
+    enum {{ $enum }} {
+        {{- range $count2, $e := $v.Enums }}
+        {{- $name := $v.EnumName $e }}
+        {{ $name }} = {{ $count2}};
+        {{- end }}
+    }
+    {{$v.Title}} {{$v.Label}} = {{$count}};
+    {{ else }}  {{$v.ProtobufType}} {{$v.Label}} = {{$count}}; {{ end }}
+{{end -}}
+{{range $_, $v := .GenEdges}}
+   {{$count = add $count 1 -}}
+    {{ if (or $v.M2M (and $v.M2O (not $v.HasUnique))) -}} repeated {{ end -}} {{$v.EdgeOwner}} {{$v.Label}} = {{$count}};
+{{end -}}
+
+}
+{{end}}
+

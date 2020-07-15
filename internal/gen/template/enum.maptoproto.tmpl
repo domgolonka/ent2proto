@@ -1,0 +1,18 @@
+{{ define "enummaptoproto" -}}
+{{ range $f := $.Fields -}}
+    {{ if $f.IsEnum -}}
+func (r *{{ $.Title}}Mapper)  to{{trimPackage $f.Type.String $.Package }}Ent(obj {{$f.Type.String}}) (s serverpb.{{$.Title}}_{{  trimPackage $f.Type.String $.Package}}) {
+
+    {{ $enum := trimPackage $f.Type.String $.Package -}}
+            {{- range $count, $e := $f.Enums }}
+                 {{- $name := $f.EnumName $e }}
+     if (obj.String() == "{{$e}}" ) {
+        s = serverpb.{{$.Title}}_{{  $name }}
+    }
+    {{- end }}
+    return s
+}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+

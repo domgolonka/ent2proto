@@ -1,0 +1,53 @@
+{{define "mapper" -}}
+package mapper
+
+import (
+	{{ if .HasTime -}}"github.com/golang/protobuf/ptypes" {{ end }}
+	"github.com/kryptodirect/database"
+	"github.com/kryptodirect/krypto-proto/go/serverpb"
+{{ if .HasEnum -}}"github.com/kryptodirect/database/{{.Package}}"{{ end }}
+	{{ if .HasJSON -}}"encoding/json"{{ end }}
+)
+
+
+type {{ .Title}}Mapper struct {}
+func New{{ .Title}}Mapper() *{{ .Title }}Mapper {
+	return &{{ .Title }}Mapper{}
+}
+
+func (r *{{ .Title}}Mapper) MapEntToProto(obj *database.{{ .Title }}) (m *serverpb.{{ .Title }}, err error) {
+
+	{{range $_, $v := .Fields}}
+		{{ if $v.IsTime -}} m.{{  $v.StructFieldProto}}, err  = ptypes.TimestampProto({{$v.DoNillable}}obj.{{  $v.StructField}})
+		{{ else if $v.IsUUID -}} m.{{  $v.StructFieldProto}}.Value = obj.{{  $v.StructField}}.String()
+		{{ else if $v.IsID -}} m.{{ $v.StructFieldProto}} = {{$v.DoNillable}}int64(obj.{{  $v.StructField}})
+		{{ else if $v.IsInt -}} m.{{ $v.StructFieldProto}} = {{$v.DoNillable}}int64(obj.{{  $v.StructField}})
+		{{ else if $v.IsFloat -}} m.{{ $v.StructFieldProto}} = {{$v.DoNillable}}float32(obj.{{  $v.StructField}})
+		{{ else if $v.IsEnum -}} m.{{ $v.StructFieldProto}} = r.to{{trimPackage $v.Type.String $.Package }}Ent({{$v.DoNillable}}obj.{{  $v.StructField}})
+		{{ else if $v.IsJSON -}} m.{{ $v.StructFieldProto}}, err = {{$v.DoNillable}}json.Marshal(obj.{{  $v.StructField}})
+		{{ else -}} m.{{  $v.StructFieldProto}} = {{$v.DoNillable}}obj.{{  $v.StructField}} {{ end }}
+	{{ end -}}
+
+	return m, err
+}
+func (r *{{ .Title}}Mapper) MapEntToProtoMany(obj []*database.{{ .Title }}) (m []*serverpb.{{ .Title }}, err error) {
+	for i, _ := range obj {
+	{{range $_, $v := .Fields}}
+		{{ if $v.IsTime -}} m[i].{{  $v.StructFieldProto}}, err = ptypes.TimestampProto({{$v.DoNillable}}obj[i].{{  $v.StructField}})
+		{{ else if $v.IsUUID -}} m[i].{{  $v.StructFieldProto}}.Value = obj[i].{{  $v.StructField}}.String()
+		{{ else if $v.IsID -}} m[i].{{ $v.StructFieldProto}} = int64(obj[i].{{  $v.StructField}})
+		{{ else if $v.IsInt -}} m[i].{{ $v.StructFieldProto}} = {{$v.DoNillable}}int64(obj[i].{{  $v.StructField}})
+		{{ else if $v.IsFloat -}} m[i].{{ $v.StructFieldProto}} = {{$v.DoNillable}}float32(obj[i].{{  $v.StructField}})
+		{{ else if $v.IsEnum -}} m[i].{{ $v.StructFieldProto}} = r.to{{trimPackage $v.Type.String $.Package }}Ent({{$v.DoNillable}}obj[i].{{  $v.StructField}})
+		{{ else if $v.IsJSON -}} m[i].{{ $v.StructFieldProto}}, err = {{$v.DoNillable}}json.Marshal(obj[i].{{  $v.StructField}})
+		{{ else -}} m[i].{{  $v.StructFieldProto}} = {{$v.DoNillable}}obj[i].{{  $v.StructField}} {{ end }}
+	{{ end -}}
+	}
+
+	return m, err
+}
+
+
+{{ if .HasEnum -}} {{ template "enummaptoproto"  . }} {{ end -}}
+{{ end -}}
+

@@ -1,0 +1,8 @@
+Right now its in really early stages.
+
+It will create a map and proto file from your ent schema
+
+to run:
+./start.sh
+./main generate [path to your schema]]
+
