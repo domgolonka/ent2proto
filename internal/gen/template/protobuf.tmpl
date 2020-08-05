@@ -24,7 +24,7 @@ message {{ .Title }} {
 {{end -}}
 {{range $_, $v := .GenEdges}}
    {{$count = add $count 1 -}}
-    {{ if (or $v.M2M (and $v.M2O (not $v.HasUnique))) -}} repeated {{ end -}} {{$v.EdgeOwner}} {{$v.Label}} = {{$count}};
+    {{ if (or $v.M2M (not $v.HasUnique)) -}} repeated {{ end -}} {{$v.EdgeOwner}} {{$v.Label}} = {{$count}};
 {{end -}}
 
 }

@@ -8,6 +8,9 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/domgolonka/ent2proto/internal/load"
+	"github.com/facebookincubator/ent"
+	"github.com/facebookincubator/ent/dialect/sql/schema"
+	"github.com/facebookincubator/ent/schema/field"
 	"github.com/sirupsen/logrus"
 	"go/token"
 	"go/types"
@@ -17,10 +20,6 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
-
-	"github.com/facebookincubator/ent"
-	"github.com/facebookincubator/ent/dialect/sql/schema"
-	"github.com/facebookincubator/ent/schema/field"
 )
 
 // The following types and their exported methods used by the codegen
@@ -1095,16 +1094,6 @@ func (e Edge) HasUnique() bool {
 
 // Constant returns the constant name of the edge.
 func (e Edge) EdgeOwner() string {
-	//var typename, name string
-	//for _, e := range t.Edges {
-	//	switch e.Rel.Type {
-	//	case O2O, O2M:
-	//		typename = e.Rel.Table
-	//	case M2O:
-	//	case M2M:
-	//	}
-	//}
-	//return pascal(snake(rules.Pluralize(e.Owner.Name)))
 	return strings.Title(e.Owner.Name)
 }
 
