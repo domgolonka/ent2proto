@@ -12,7 +12,7 @@ require (
 	github.com/kryptodirect/krypto-proto/go/serverpb v0.0.0-00010101000000-000000000000
 	github.com/micro/go-micro/v2 v2.9.1 // indirect
 	github.com/olekukonko/tablewriter v0.0.4
-	github.com/sirupsen/logrus v1.6.0
+	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/cobra v1.0.0
 	golang.org/x/tools v0.0.0-20200626171337-aa94e735be7f
 )
