@@ -7,13 +7,13 @@ require (
 	github.com/facebookincubator/ent v0.2.5
 	github.com/go-openapi/inflect v0.19.0
 	github.com/golang/protobuf v1.4.3
-	github.com/google/uuid v1.1.1
+	github.com/google/uuid v1.2.0
 	github.com/kryptodirect/database v0.0.0-00010101000000-000000000000
 	github.com/kryptodirect/krypto-proto/go/serverpb v0.0.0-00010101000000-000000000000
 	github.com/micro/go-micro/v2 v2.9.1 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
+	github.com/spf13/cobra v1.1.3
 	github.com/sirupsen/logrus v1.7.0
-	github.com/spf13/cobra v1.0.0
 	golang.org/x/tools v0.0.0-20200626171337-aa94e735be7f
 )
 
