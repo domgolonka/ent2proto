@@ -11,8 +11,8 @@ require (
 	github.com/kryptodirect/database v0.0.0-00010101000000-000000000000
 	github.com/kryptodirect/krypto-proto/go/serverpb v0.0.0-00010101000000-000000000000
 	github.com/micro/go-micro/v2 v2.9.1 // indirect
-	github.com/sirupsen/logrus v1.7.1
 	github.com/olekukonko/tablewriter v0.0.5
+	github.com/sirupsen/logrus v1.8.0
 	github.com/spf13/cobra v1.1.3
 	golang.org/x/tools v0.0.0-20200626171337-aa94e735be7f
 )
