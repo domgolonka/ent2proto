@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.4.1 // indirect
+	github.com/bketelsen/crypt v0.0.3-0.20200106085610-5cbc8cc4026c // indirect
 	github.com/facebookincubator/ent v0.2.5
 	github.com/go-openapi/inflect v0.19.0
 	github.com/golang/protobuf v1.5.2
@@ -13,8 +14,9 @@ require (
 	github.com/micro/go-micro/v2 v2.9.1 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/sirupsen/logrus v1.8.1
-	github.com/spf13/cobra v1.1.3
-	golang.org/x/tools v0.0.0-20200626171337-aa94e735be7f
+	github.com/smartystreets/goconvey v1.6.4 // indirect
+	github.com/spf13/cobra v1.3.0
+	golang.org/x/tools v0.1.5
 )
 
 replace github.com/kryptodirect/database => /Users/domzmac/go/src/github.com/kryptodirect/database
